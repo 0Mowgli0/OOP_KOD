@@ -9,8 +9,9 @@ namespace OOP_KOD;
 
 public interface IBookingStatus
 {
-    string Name { get; }
+    object Name { get; }
     bool CanConfirm { get; }
+
     void HandleBooking(Booking booking);
-    bool CanRefund(Booking booking);
+    bool CanBeConfirmed();
 }

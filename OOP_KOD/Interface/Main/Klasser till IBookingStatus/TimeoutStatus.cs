@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD;
 
-public sealed class TimeoutStatus : IBookingStatus
+public class TimeoutStatus : IBookingStatus
 {
-    public string Name => "Timeout";
-    public bool CanConfirm => false;
+    public object Name => throw new NotImplementedException();
+
+    public bool CanConfirm => throw new NotImplementedException();
 
     public void HandleBooking(Booking booking)
     {
-        // Terminal.
+        // TODO: Logic for handling a timed-out booking
     }
 
-    public bool CanRefund(Booking booking) => false;
+    public bool CanBeConfirmed()
+    {
+        // A timed-out booking cannot be confirmed
+        return false;
+    }
 }
 

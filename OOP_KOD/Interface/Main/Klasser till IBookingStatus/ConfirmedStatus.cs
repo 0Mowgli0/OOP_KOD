@@ -7,15 +7,16 @@ using OOP_KOD;
 
 namespace OOP_KOD;
 
-public sealed class ConfirmedStatus : IBookingStatus
+public class ConfirmedStatus : IBookingStatus
 {
-    public string Name => "Bekräftad";
-    public bool CanConfirm => false;
-
     public void HandleBooking(Booking booking)
     {
-        // Terminal in this simple example.
+        // TODO: Logic for handling a confirmed booking
     }
 
-    public bool CanRefund(Booking booking) => true;
+    public bool CanBeConfirmed()
+    {
+        // A confirmed booking is already confirmed
+        return false;
+    }
 }

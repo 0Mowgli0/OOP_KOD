@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD;
 
-public sealed class CanceledStatus : IBookingStatus
+public class CanceledStatus : IBookingStatus
 {
-    public string Name => "Avbokad";
-    public bool CanConfirm => false;
-
     public void HandleBooking(Booking booking)
     {
-        // Terminal.
+        // TODO: Logic for handling a canceled booking
     }
 
-    public bool CanRefund(Booking booking) => false;
+    public bool CanBeConfirmed()
+    {
+        // A canceled booking cannot be confirmed
+        return false;
+    }
 }
+

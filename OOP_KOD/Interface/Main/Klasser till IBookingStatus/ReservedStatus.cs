@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD;
 
-public sealed class ReservedStatus : IBookingStatus
+public class ReservedStatus : IBookingStatus
 {
-    public string Name => "Reserverad";
-    public bool CanConfirm => true;
-
     public void HandleBooking(Booking booking)
     {
-        // No automatic transition here. Wait for Confirm/Cancel/Timeout.
+        // TODO: Logic for handling a reserved booking
     }
 
-    public bool CanRefund(Booking booking) => false;
+    public bool CanBeConfirmed()
+    {
+        // A reserved booking can usually be confirmed
+        return true;
+    }
 }
-

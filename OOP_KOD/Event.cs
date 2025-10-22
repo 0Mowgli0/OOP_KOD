@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD;
 
-public sealed class Event
+public class Event
 {
-    public int Id { get; }
-    public string Name { get; }
-    public DateTime StartsAt { get; }
-    public DateTime ReleaseAt { get; }
-    public Arena Arena { get; }
+    public int EventId { get; set; }
+    public string Name { get; set; } = "";
+    public string Artist { get; set; } = "";
+    public DateTime Date { get; set; }
+    public Arena Arena { get; set; } = new();
+    public bool IsIndoors { get; set; }
 
-    public Event(int id, string name, DateTime startsAt, DateTime releaseAt, Arena arena)
+    public void ShowDetails()
     {
-        Id = id;
-        Name = name;
-        StartsAt = startsAt;
-        ReleaseAt = releaseAt;
-        Arena = arena;
+        Console.WriteLine("Evenemangsdetaljer:");
+        Console.WriteLine($"  Namn: {Name}");
+        Console.WriteLine($"  Artist: {Artist}");
+        Console.WriteLine($"  Datum: {Date:yyyy-MM-dd HH:mm}");
+        Console.WriteLine($"  Arena: {Arena.Name}");
+        Console.WriteLine($"  Inomhus: {(IsIndoors ? "ja" : "nej")}");
     }
+
+    public List<Seat> GetAvailableSeats()
+        => Arena.GetAvailableSeats();
 }
