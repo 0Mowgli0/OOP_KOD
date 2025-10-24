@@ -1,35 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_KOD;
-
-public sealed class Booking
+﻿namespace OOP_KOD
 {
-    public int Id { get; }
-    public string CustomerName { get; }
-    public IBookingStatus Status { get; private set; }
-
-    public Booking(int id, string customerName)
+    public sealed class Booking
     {
-        Id = id;
-        CustomerName = customerName;
-        Status = new ReservedStatus();  // start state
+        public Guid Id { get; } = Guid.NewGuid();
+        public DateTime CreatedUtc { get; init; } = DateTime.UtcNow;
+
+        private IBookingStatus _status = new ReservedStatus();
+        public IBookingStatus Status => _status;
+
+        public void Handle() => _status.HandleBooking(this);
+
+        public bool TryConfirm()
+        {
+            if (!_status.CanBeConfirmed()) return false;
+            _status = new ConfirmedStatus();
+            return true;
+        }
+
+        public void Cancel() => _status = new CanceledStatus();
+
+        public void Timeout()
+        {
+            if (_status is TimeoutStatus) return;
+            _status = new TimeoutStatus();
+            // här kan du senare trigga notis / släppa platser, etc.
+        }
+
+
     }
-
-    public void SetStatus(IBookingStatus next) => Status = next;
-
-    // Convenience actions (you call these from Program/UI)
-    public void Confirm()
-    {
-        if (!Status.CanConfirm)
-            throw new InvalidOperationException($"Kan inte bekräfta i status '{Status.Name}'.");
-        SetStatus(new ConfirmedStatus());
-    }
-
-    public void Cancel() => SetStatus(new CanceledStatus());
-    public void Timeout() => SetStatus(new TimeoutStatus());
 }
-
