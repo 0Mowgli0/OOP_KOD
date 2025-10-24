@@ -24,6 +24,11 @@ namespace OOP_KOD
             // Avboka (visa transition – i verkligheten kanske du inte får avboka efter bekräftelse)
             booking.Cancel();
             Console.WriteLine($"Status efter Cancel(): {booking.Status.Name}");
+            Console.ReadLine();
+
+
+
+
         }
     }
 }
