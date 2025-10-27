@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD
 {
+    // Klass som representerar en sittplats på arenan
     public class Seat
     {
-        // Fields (English), behavior names in English
+        // Egenskaper för platsens ID, rad, nummer, typ, status och grundpris
         public int SeatId { get; }
         public int RowNumber { get; }
         public int SeatNumber { get; }
@@ -17,7 +18,7 @@ namespace OOP_KOD
         public SeatStatus Status { get; private set; } = SeatStatus.FREE;
         public double BasePrice { get; }
 
-
+        // Konstruktorn skapar en ny sittplats med angivna värden
         public Seat(int seatId, int rowNumber, int seatNumber, SeatType type, double basePrice)
         {
             SeatId = seatId;
@@ -27,7 +28,7 @@ namespace OOP_KOD
             BasePrice = basePrice;
         }
 
-
+        // Försöker reservera platsen om den är ledig
         public bool Reserve()
         {
             if (Status != SeatStatus.FREE) return false;
@@ -35,20 +36,21 @@ namespace OOP_KOD
             return true;
         }
 
-
+        // Släpper platsen så att den blir ledig igen
         public void Release()
         {
             Status = SeatStatus.FREE;
         }
 
+        /* 
+        // Bokar platsen permanent (kommenterad bort – kan aktiveras vid behov)
+        public void Book()
+        {
+            Status = SeatStatus.BOOKED;
+        }
+        */
 
-        /* public void Book()
-         {
-             Status = SeatStatus.BOOKED; Vet ej om denna ska vara här?
-         }*/
-
-
-        // Only used for console/UI coloring text in Swedish
+        // Returnerar färg baserat på platsens status (används för konsol-/UI-visning)
         public string GetColor()
         {
             return Status switch
@@ -60,7 +62,7 @@ namespace OOP_KOD
             };
         }
 
-
+        // Returnerar en textbeskrivning av platsen
         public override string ToString() => $"Rad {RowNumber}, Plats {SeatNumber} ({Type}) – {Status}";
     }
 }

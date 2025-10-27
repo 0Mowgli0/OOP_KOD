@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD
 {
+    // Enum som beskriver olika typer av sittplatser
     public enum SeatType
     {
-        FOLDING,
-        BENCH,
-        LUXURY_BOX
+        FOLDING,     // Fällstol
+        BENCH,       // Bänk
+        LUXURY_BOX   // Lyxloge
     }
 }
