@@ -18,7 +18,7 @@ namespace OOP_KOD.Interface.Booking_repository
         }
 
         // Hämtar en bokning via ID
-        public Booking getBooking(int id)
+        public Booking getBooking(Guid id)
         {
             return bookings.Find(b => b.Id == id);
         }

@@ -12,7 +12,7 @@ namespace OOP_KOD.Interface.Booking_repository
         void saveBooking(Booking booking);
 
         // Hämtar en bokning via ID
-        Booking getBooking(int id);
+        Booking getBooking(Guid id);
 
         // Hämtar alla aktiva bokningar
         List<Booking> getAllActiveBookings();
