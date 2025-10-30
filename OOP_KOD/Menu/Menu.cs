@@ -47,8 +47,9 @@ namespace OOP_KOD
                 Console.WriteLine("1) Visa platskarta");
                 Console.WriteLine("2) Lista lediga platser");
                 Console.WriteLine("3) Reservera plats via ID");
-                Console.WriteLine("4) Frigör plats via ID");
+                Console.WriteLine("4) Avresarvera via ID");
                 Console.WriteLine("5) Visa eventdetaljer");
+                Console.WriteLine("6) Visa pris på evenemang");
                 Console.WriteLine("9) Byt event (tillbaka)");
                 Console.WriteLine("0) Avsluta programmet");
                 Console.Write("Välj: ");
@@ -109,6 +110,9 @@ namespace OOP_KOD
                         Console.WriteLine(_manager.GetEventDetails(currentEvent));
                         Console.WriteLine($"Inomhus: {(currentEvent.IsIndoors ? "ja" : "nej")}");
                         break;
+
+                    case "6": Console.WriteLine("Prisdetaljer:");
+
 
                     default:
                         Console.WriteLine("Okänt val.");
