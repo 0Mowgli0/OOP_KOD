@@ -10,7 +10,7 @@ namespace OOP_KOD
     {
         public double CalculatePrice()
         {
-            Console.WriteLine("Using BasePriceStrategy: Returning standard base price.");
+            Console.WriteLine("");
             // Mock-implementation: returns a fixed base price.
             return 100.00;
         }

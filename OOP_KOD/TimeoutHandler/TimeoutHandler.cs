@@ -1,67 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OOP_KOD
 {
-    public class TimeoutHandler
+    // Enkel timeout-hanterare baserad på System.Threading.Timer
+    public sealed class TimeoutHandler : IDisposable
     {
         public DateTime TimeoutTime { get; private set; }
-        private Timer timer;
-        private Action timeoutCallback;
-        private TimeSpan timeoutDuration;
+        private System.Threading.Timer? _timer;
+        private Action? _callback;
 
-        public TimeoutHandler(TimeSpan duration, Action callback)
+        public void StartTimeout(TimeSpan duration, Action callback)
         {
-            timeoutDuration = duration;
-            timeoutCallback = callback;
-        }
+            CancelTimeout();
+            _callback = callback;
+            TimeoutTime = DateTime.UtcNow.Add(duration);
 
-        public void StartTimeout()
-        {
-            TimeoutTime = DateTime.Now.Add(timeoutDuration);
-            timer = new Timer(_ => timeoutCallback?.Invoke(), null, timeoutDuration, Timeout.InfiniteTimeSpan);
+            // Starta en engångstimer som anropar callback och sedan själv-disposar
+            _timer = new System.Threading.Timer(_ =>
+            {
+                CancelTimeout();
+                _callback?.Invoke();
+            }, null, duration, System.Threading.Timeout.InfiniteTimeSpan);
         }
 
         public void CancelTimeout()
         {
-            timer?.Dispose();
-            timer = null;
+            _timer?.Dispose();
+            _timer = null;
         }
 
-        // tror inte de ska va med
-        public bool IsExpired()
-        {
-            return DateTime.Now > TimeoutTime;
-        }
+        public void Dispose() => CancelTimeout();
     }
 }
-
-/* För att använda TimeoutHandler i en bokningsklass:
- 
-    public class Booking
-{
-    private TimeoutHandler timeoutHandler;
-
-    public Booking()
-    {
-        // 15 minuters timeout
-        timeoutHandler = new TimeoutHandler(TimeSpan.FromMinutes(15), () => Cancel());
-    }
-
-    public void Confirm()
-    {
-        // Bekräfta bokningen och avbryt timeout
-        timeoutHandler.CancelTimeout();
-        status = new ConfirmedStatus();
-    }
-
-    public void Cancel()
-    {
-        // Avbryt bokningen (anropas antingen manuellt eller av timeout)
-        timeoutHandler.CancelTimeout();
-        status = new CancelledStatus();
-    }
-} */

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using OOP_KOD.Interface.Booking_repository;
 
 namespace OOP_KOD
 {
@@ -9,7 +9,14 @@ namespace OOP_KOD
         public static void Main(string[] args)
         {
             List<Event> events = SeedData.CreateEvents();
-            new Menu(events).Run();
+
+            var notifier = new NotificationService();
+            notifier.RegisterObserver(new EmailNotifier());
+            notifier.RegisterObserver(new SMSNotifier());
+
+            IBookingRepository repo = new BookingRepository();
+
+            new Menu(events, notifier, repo).Run();
             Console.WriteLine("\nHej då!");
         }
     }

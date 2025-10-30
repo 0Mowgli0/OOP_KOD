@@ -1,16 +1,8 @@
-﻿using OOP_KOD;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOP_KOD
+﻿namespace OOP_KOD
 {
-    // Klass som representerar en sittplats på arenan
+    // Minimal, enkel Seat
     public class Seat
     {
-        // Egenskaper för platsens ID, rad, nummer, typ, status och grundpris
         public int SeatId { get; }
         public int RowNumber { get; }
         public int SeatNumber { get; }
@@ -18,8 +10,7 @@ namespace OOP_KOD
         public SeatStatus Status { get; private set; } = SeatStatus.FREE;
         public double BasePrice { get; }
 
-        // Konstruktorn skapar en ny sittplats med angivna värden
-        public Seat(int seatId, int rowNumber, int seatNumber, SeatType type, double basePrice)
+        public Seat(int seatId, int rowNumber, int seatNumber, SeatType type, double basePrice, string? color = null, bool? ecoPaintApproved = null)
         {
             SeatId = seatId;
             RowNumber = rowNumber;
@@ -28,7 +19,6 @@ namespace OOP_KOD
             BasePrice = basePrice;
         }
 
-        // Försöker reservera platsen om den är ledig
         public bool Reserve()
         {
             if (Status != SeatStatus.FREE) return false;
@@ -36,33 +26,23 @@ namespace OOP_KOD
             return true;
         }
 
-        // Släpper platsen så att den blir ledig igen
-        public void Release()
+        public bool Book()
         {
-            Status = SeatStatus.FREE;
-        }
-
-        /* 
-        // Bokar platsen permanent (kommenterad bort – kan aktiveras vid behov)
-        public void Book()
-        {
+            if (Status != SeatStatus.RESERVED) return false;
             Status = SeatStatus.BOOKED;
+            return true;
         }
-        */
 
-        // Returnerar färg baserat på platsens status (används för konsol-/UI-visning)
-        public string GetColor()
+        public void Release() => Status = SeatStatus.FREE;
+
+        public string GetColor() => Status switch
         {
-            return Status switch
-            {
-                SeatStatus.FREE => "grön",
-                SeatStatus.RESERVED => "gul",
-                SeatStatus.BOOKED => "röd",
-                _ => "grå"
-            };
-        }
+            SeatStatus.FREE => "grön",
+            SeatStatus.RESERVED => "gul",
+            SeatStatus.BOOKED => "röd",
+            _ => "grå"
+        };
 
-        // Returnerar en textbeskrivning av platsen
         public override string ToString() => $"Rad {RowNumber}, Plats {SeatNumber} ({Type}) – {Status}";
     }
 }

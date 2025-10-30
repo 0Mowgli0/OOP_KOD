@@ -11,11 +11,13 @@ namespace OOP_KOD
     {
         public void HandleBooking(Booking booking)
         {
-
-            if (DateTime.UtcNow >= booking.CreatedUtc.AddMinutes(10))
+            if (System.DateTime.UtcNow >= booking.ExpiresAtUtc)
+            {
+                booking.CancelTimer();
                 booking.Timeout();
-
+            }
         }
+
         public bool CanBeConfirmed() => true;
     }
 }

@@ -37,7 +37,6 @@ namespace OOP_KOD
             // assuming the type always exists in the dictionary.
             if (_prices.TryGetValue(_selectedType, out double price))
             {
-                Console.WriteLine($"Using SeatingTypePriceStrategy: Price for {_selectedType} is {price:F2}");
                 return price;
             }
 
