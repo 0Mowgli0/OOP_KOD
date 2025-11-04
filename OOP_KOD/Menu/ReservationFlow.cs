@@ -69,7 +69,7 @@ namespace OOP_KOD
 
         private static List<int> ReadSeatNumbers()
         {
-            Console.Write("Platsnummer (komma-separerat, t.ex. 1,12,25): ");
+            Console.Write("Välj platsreservation(er) (komma-separerat, t.ex. 1,12,25): ");
             var raw = Console.ReadLine() ?? "";
             return raw.Split(',', StringSplitOptions.RemoveEmptyEntries)
                       .Select(s => int.TryParse(s.Trim(), out var v) ? v : -1)

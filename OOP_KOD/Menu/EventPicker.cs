@@ -17,15 +17,15 @@ namespace OOP_KOD
             Console.WriteLine();
             Console.WriteLine("Tillgängliga event:");
             for (int i = 0; i < _events.Count; i++)
-                Console.WriteLine($"{i}: {_events[i].ShowDetails()}");
+                Console.WriteLine($"{i+1}: {_events[i].ShowDetails()}");
 
             Console.Write("Event-index: ");
             var input = Console.ReadLine();
 
-            if (!int.TryParse(input, out int idx) || idx < 0 || idx >= _events.Count)
+            if (!int.TryParse(input, out int idx) || idx < 1 || idx >= _events.Count)
             {
-                Console.WriteLine("Ogiltigt index, väljer första (0).");
-                idx = 0;
+                Console.WriteLine("Ogiltigt index, väljer första (1).");
+                idx = 1;
             }
 
             return _events[idx];

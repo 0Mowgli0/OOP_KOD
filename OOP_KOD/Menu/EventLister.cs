@@ -20,7 +20,7 @@ namespace OOP_KOD
             {
                 var ev = _events[i];
                 double price = priceCalc.GetPrice();
-                Console.WriteLine($"{i}: {ev.ShowDetails()} – {price:0} kr");
+                Console.WriteLine($"{i+1}: {ev.ShowDetails()} – {price:0} kr");
             }
         }
     }
