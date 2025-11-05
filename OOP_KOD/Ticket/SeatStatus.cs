@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD
 {
-    // Enum som beskriver statusen för en sittplats
+    // Enum (namngiven lista av fasta värden) som beskriver statusen för en sittplats
     public enum SeatStatus
     {
         FREE,      // Platsen är ledig

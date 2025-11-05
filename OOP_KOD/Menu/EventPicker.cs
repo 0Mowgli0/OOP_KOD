@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace OOP_KOD
 {
+    // Väljer ett event från en lista via konsolen
     internal class EventPicker
     {
         private readonly List<Event> _events;
@@ -12,6 +13,7 @@ namespace OOP_KOD
             _events = events;
         }
 
+        // Låt användaren välja ett event
         public Event PickEvent()
         {
             Console.WriteLine();

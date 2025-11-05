@@ -2,6 +2,7 @@
 
 namespace OOP_KOD
 {
+    // Visar sitskartan för valt event
     internal class MapViewer
     {
         private readonly EventPicker _picker;

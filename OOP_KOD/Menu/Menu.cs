@@ -10,6 +10,9 @@ namespace OOP_KOD
         private readonly EventManager _manager = new EventManager();
         private readonly TimeSpan _ttl = TimeSpan.FromSeconds(5000);
 
+        // Olika "hjälparklasser" som menyn använder
+
+
         private readonly EventLister _eventLister;
         private readonly EventPicker _eventPicker;
         private readonly MapViewer _mapViewer;
@@ -17,6 +20,7 @@ namespace OOP_KOD
         private readonly ConfirmFlowService _confirmFlow;
         private readonly CancelFlowService _cancelFlow;
 
+        // Håller koll på aktuell bokning i menyn (kan vara null om ingen finns)
         private Booking? _currentBooking;
         
 
@@ -30,6 +34,9 @@ namespace OOP_KOD
             _cancelFlow = new CancelFlowService(repo, notify);
             
         }
+
+        // Huvudloopen för konsol-menyn
+
 
         public void Run()
         {
