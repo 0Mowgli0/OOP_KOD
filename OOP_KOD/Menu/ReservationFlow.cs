@@ -5,6 +5,8 @@ using OOP_KOD.Interface.Booking_repository;
 
 namespace OOP_KOD
 {
+    // Ansvar: styra hela flödet för en bokning/reservation
+
     internal class ReservationFlow
     {
         private readonly EventPicker _picker;
@@ -20,6 +22,8 @@ namespace OOP_KOD
             _repo = repo;
             _ttl = ttl;
         }
+
+        // Kör hela reservationsflödet och returnerar bokningen om allt lyckas, annars null
 
         public Booking? RunReservation()
         {
@@ -41,6 +45,8 @@ namespace OOP_KOD
             }
 
             var seats = new List<Seat>();
+            // Kör hela reservationsflödet och returnerar bokningen om allt lyckas, annars null
+
             foreach (var num in seatNumbers)
             {
                 var seat = ev.Arena.Seats.FirstOrDefault(s => s.SeatNumber == num);

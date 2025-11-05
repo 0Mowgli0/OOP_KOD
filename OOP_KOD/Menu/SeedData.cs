@@ -76,8 +76,11 @@ namespace OOP_KOD
                         ? SeatType.FOLDING
                         : (row == 2 ? SeatType.BENCH : SeatType.LUXURY_BOX);
 
-                    
-                   
+                    string color = type == SeatType.FOLDING ? "röd" : "svart";
+                    bool eco = type == SeatType.BENCH;
+
+                    // Använd samma prisstrategi som i Arena 1
+
 
                     double basePrice = type switch
                     {
@@ -86,6 +89,8 @@ namespace OOP_KOD
                         SeatType.BENCH => priceBalcony,
                         _ => priceStandard
                     };
+
+                    // Skapa stol och lägg in i listan för Arena 2
 
                     seatsArena2.Add(new Seat(
                         seatId: id++,
