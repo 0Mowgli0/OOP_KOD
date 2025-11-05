@@ -5,17 +5,20 @@ using OOP_KOD.Payment;
 
 namespace OOP_KOD
 {
+    // Hanterar bekräftelseflödet för en bokning.
     internal class ConfirmFlowService
     {
         private readonly IBookingRepository _repo;
         private readonly NotificationService _notify;
 
+        // Skapar tjänsten med beroenden för lagring och notifiering.
         public ConfirmFlowService(IBookingRepository repo, NotificationService notify)
         {
             _repo = repo;
             _notify = notify;
         }
 
+        // Bekräftar den angivna bokningen efter betalning.
         public Booking? Confirm(Booking? current)
         {
             if (current == null)

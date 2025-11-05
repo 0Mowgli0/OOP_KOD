@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace OOP_KOD
 {
+    // Hanterar sitskarta, lediga platser och bokningsåtgärder för ett event
     public class EventManager
     {
         public string GetSeatMap(Event evt) => evt.Arena.GetSeatMap();
@@ -18,12 +19,14 @@ namespace OOP_KOD
                .ThenBy(s => s.SeatNumber)
                .ToList();
 
+        // Försök reservera en plats; returnera true om lyckad
         public bool ReserveSeat(Event evt, int seatId)
         {
             var seat = evt.Arena.FindSeat(seatId);
             return seat != null && seat.Reserve();
         }
 
+        // Frigör en plats
         public bool ReleaseSeat(Event evt, int seatId)
         {
             var seat = evt.Arena.FindSeat(seatId);
@@ -32,6 +35,7 @@ namespace OOP_KOD
             return true;
         }
 
+        // Hämta detaljer för ett event
         public string GetEventDetails(Event evt) => evt.ShowDetails();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace OOP_KOD
 {
-    // Minimal, enkel Seat
+    // Modell för en sittplats med status, typ och grundpris.
     public class Seat
     {
         public int SeatId { get; }
@@ -10,6 +10,7 @@
         public SeatStatus Status { get; private set; } = SeatStatus.FREE;
         public double BasePrice { get; }
 
+        // Skapar en ny stol med identitet, placering, typ och grundpris.
         public Seat(int seatId, int rowNumber, int seatNumber, SeatType type, double basePrice, string? color = null, bool? ecoPaintApproved = null)
         {
             SeatId = seatId;
@@ -19,6 +20,7 @@
             BasePrice = basePrice;
         }
 
+        // Försöker reservera stolen om den är ledig.
         public bool Reserve()
         {
             if (Status != SeatStatus.FREE) return false;
@@ -26,6 +28,7 @@
             return true;
         }
 
+        // Försöker boka stolen om den redan är reserverad.
         public bool Book()
         {
             if (Status != SeatStatus.RESERVED) return false;
@@ -33,16 +36,11 @@
             return true;
         }
 
+        // Frigör stolen och sätter dess status till ledig.
         public void Release() => Status = SeatStatus.FREE;
 
-        public string GetColor() => Status switch
-        {
-            SeatStatus.FREE => "grön",
-            SeatStatus.RESERVED => "gul",
-            SeatStatus.BOOKED => "röd",
-            _ => "grå"
-        };
 
+        // Textrepresentation av stolens placering, typ och status.
         public override string ToString() => $"Rad {RowNumber}, Plats {SeatNumber} ({Type}) – {Status}";
     }
 }
