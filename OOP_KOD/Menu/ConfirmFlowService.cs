@@ -37,12 +37,13 @@ namespace OOP_KOD
             var k = (Console.ReadLine() ?? "").Trim().ToLower();
             IPayment pay = k == "f" ? new Invoice(total) : new DirectPayment(total);
 
-            pay.Pay();
             if (current.TryConfirm())
             {
                 _repo.updateBooking(current);
                 _notify.NotifyAll($"Bokning {current.Id} bekräftad. Totalt {total:0.00} kr.");
                 Console.WriteLine("Bekräftad.");
+                pay.Pay();
+
             }
             else
             {
