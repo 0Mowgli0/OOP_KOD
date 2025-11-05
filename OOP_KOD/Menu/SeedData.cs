@@ -4,8 +4,12 @@ using OOP_KOD;
 
 namespace OOP_KOD
 {
+    // Klassen SeedData används för att skapa startdata (dummy-data) till applikationen
+
     public static class SeedData
     {
+        // Metoden skapar en lista av Event-objekt med tillhörande arenor och stolar
+
         public static List<Event> CreateEvents()
         {
             // HÄR: räkna ut priserna EN gång
@@ -24,6 +28,8 @@ namespace OOP_KOD
                     // globalt platsnummer: rad 1 = 1–10, rad 2 = 11–20, rad 3 = 21–30
                     int seatNumber = (row - 1) * 10 + i;
 
+                    // Bestäm SeatType baserat på radnummer
+
                     SeatType type = row == 1
                         ? SeatType.LUXURY_BOX
                         : (row == 2 ? SeatType.FOLDING : SeatType.BENCH);
@@ -39,6 +45,8 @@ namespace OOP_KOD
                         SeatType.BENCH => priceBalcony,  // Billigast
                         _ => priceStandard
                     };
+
+                    // Skapa stol och lägg in i listan för Arena 1
 
                     seatsArena1.Add(new Seat(
                         seatId: id++,
@@ -58,14 +66,18 @@ namespace OOP_KOD
             {
                 for (int i = 1; i <= 10; i++)
                 {
+                    // Samma princip för platsnumrering som i Arena 1
+
                     int seatNumber = (row - 1) * 10 + i;   // samma princip här
+
+                    // Här används en annan stolfördelning per rad
 
                     SeatType type = row == 1
                         ? SeatType.FOLDING
                         : (row == 2 ? SeatType.BENCH : SeatType.LUXURY_BOX);
 
-                    string color = type == SeatType.FOLDING ? "röd" : "svart";
-                    bool eco = type == SeatType.BENCH;
+                    
+                   
 
                     double basePrice = type switch
                     {
