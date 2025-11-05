@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using OOP_KOD.Interface.Booking_repository;
 using OOP_KOD.Payment;
@@ -8,7 +8,7 @@ namespace OOP_KOD
     public class Menu
     {
         private readonly EventManager _manager = new EventManager();
-        private readonly TimeSpan _ttl = TimeSpan.FromMinutes(10);
+        private readonly TimeSpan _ttl = TimeSpan.FromSeconds(5000);
 
         private readonly EventLister _eventLister;
         private readonly EventPicker _eventPicker;
@@ -18,6 +18,7 @@ namespace OOP_KOD
         private readonly CancelFlowService _cancelFlow;
 
         private Booking? _currentBooking;
+        
 
         public Menu(List<Event> events, NotificationService notify, IBookingRepository repo)
         {
@@ -27,6 +28,7 @@ namespace OOP_KOD
             _reservationFlow = new ReservationFlow(_eventPicker, _manager, repo, _ttl);
             _confirmFlow = new ConfirmFlowService(repo, notify);
             _cancelFlow = new CancelFlowService(repo, notify);
+            
         }
 
         public void Run()
@@ -63,12 +65,60 @@ namespace OOP_KOD
                         break;
 
                     case "4":
-                        _currentBooking = _confirmFlow.Confirm(_currentBooking);
-                        break;
+                        {
+                            var active = _cancelFlow.GetActiveBookings();
+                            if (active == null || active.Count == 0)
+                            {
+                                Console.WriteLine("Inga aktiva bokningar att bekräfta.");
+                                break;
+                            }
+
+                            Console.WriteLine("Välj bokning att bekräfta:");
+                            for (int i = 0; i < active.Count; i++)
+                                Console.WriteLine($"{i + 1}. Bokning ID: {active[i].Id}");
+
+                            Console.Write("Val (nummer): ");
+                            if (int.TryParse(Console.ReadLine(), out int confirmChoice) &&
+                                confirmChoice >= 1 && confirmChoice <= active.Count)
+                            {
+                                var booking = active[confirmChoice - 1];
+                                _confirmFlow.Confirm(booking);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ogiltigt val.");
+                            }
+                            break;
+                        }
 
                     case "5":
-                        _currentBooking = _cancelFlow.Cancel(_currentBooking);
-                        break;
+                        {
+                            var active = _confirmFlow.GetActiveBookings();
+
+                            if (active == null || active.Count == 0)
+                            {
+                                Console.WriteLine("Inga aktiva bokningar att avboka.");
+                                break;
+                            }
+
+                            Console.WriteLine("Välj bokning att avboka:");
+                            for (int i = 0; i < active.Count; i++)
+                                Console.WriteLine($"{i + 1}. Bokning ID: {active[i].Id}");
+
+                            Console.Write("Val (nummer): ");
+                            if (int.TryParse(Console.ReadLine(), out int cancelChoice) &&
+                                cancelChoice >= 1 && cancelChoice <= active.Count)
+                            {
+                                var booking = active[cancelChoice - 1];
+                                _cancelFlow.Cancel(booking);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ogiltigt val.");
+                            }
+                            break;
+                        }
+
 
                     default:
                         Console.WriteLine("Ogiltigt val.");

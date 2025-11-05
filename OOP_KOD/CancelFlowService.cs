@@ -29,5 +29,9 @@ namespace OOP_KOD
 
             return current;
         }
+        public List<Booking> GetActiveBookings()
+        {
+            return _repo.getAllActiveBookings();
+        }
     }
 }
